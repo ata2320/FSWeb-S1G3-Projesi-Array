@@ -28,7 +28,6 @@ const orijinalTatlar = [
   "Çilek",
   "Vanilya",
 ];
-
 /* Görev 1: Diziyi kopyalama!
 Orijinal tatların bulunduğu toplam 25 aromanın olduğu bir dizimiz var (yukarıya bakın). Bu görevde, bu dizi'ye veri yazma ve bu diziden veri okuma işlemleri yapacağız.
 Tüm bu değişiklikleri yaparken, gerçek, orijinal 25 lezzetin listesini kaybetmek istemiyoruz. Bu yüzden orijinal diziyi kopyalamamız gerekmektedir!
@@ -39,11 +38,10 @@ Aşağıdakileri yapmak için aşağıdaki kopyalama işlevini kullanın:
    2. Alınan dizinin bir kopyasını döndür
 */
 
-
-function kopyala(/*kod buraya*/){
-  /*kod buraya*/
+function kopyala(tatlar) {
+  const sonuc = tatlar.slice();
+  return sonuc;
 }
-
 
 /* Görev 2:
 Bir dizinin tam olarak 25 çeşit olduğunu onaylayın. İşleviniz şunları kabul etmelidir:
@@ -55,11 +53,13 @@ Bir dizinin tam olarak 25 çeşit olduğunu onaylayın. İşleviniz şunları ka
 Örneğin: dizi25Cesit(orijinalTatlar) kodunuz düzgün çalışıyorsa true değerini döndürür.
 */
 
-
-function dizi25Cesitmi(/*kod buraya*/){
-  /*kod buraya*/
+function dizi25Cesitmi(tatlar) {
+  if (tatlar.length === 25) {
+    return true;
+  } else {
+    return false;
+  }
 }
-
 
 /* Görev 3:
 Pastane sahibi size yeni bir lezzet fikriyle geldi: Kakule! Bunun da çok tutacağından çok emin. Bu lezzeti eklemek için diziyi değiştirmeniz gerekir.
@@ -73,13 +73,12 @@ Aşağıdakileri yapmak için cesitEkle işlevini kullanın:
   Örneğin: cesitEkle(orijinalTatlar, "Kakule") işlevi doğru çalıştığında ["Kakule", "Muz",..."Vanilya"] şeklinde dönmelidir
 */
 
-
-function cesitEkle(/*kod buraya*/){
-  /*kod buraya*/
+function cesitEkle(tatlar, yeniTat) {
+  tatlar.unshift(yeniTat);
+  return tatlar;
 }
-
-
-/* Cörev 4:
+//console.log(cesitEkle(orijinalTatlar, "Kakule"));
+/* Görev 4:
 
 Hoooppppalaa! orijinalTatlar dizisinde artık 26 aroma var! Göreviniz, dizinin sonundan bir öğeyi kaldırmaktır.
 
@@ -91,11 +90,11 @@ Aşağıdakileri yapmak için sonCesitiKaldir işlevini kullanın:
    Örneğin: sonCesitiKaldir(orijinalTatlar) çalıştırıldığında ["Kakule", "Muz",..."Çilek"] döndürülür.
 */
 
-
-function sonCesitiKaldir(/*kod buraya*/){
-  /*kod buraya*/
+function sonCesitiKaldir(tatlar) {
+  tatlar.pop();
+  return tatlar;
 }
-
+//console.log(sonCesitiKaldir(orijinalTatlar));
 
 /* Görev 5:
 Dizideki belirli bir indeksteki çeşniyi döndüren bir işlev yazın.
@@ -104,15 +103,15 @@ Aşağıdakileri yapmak için aşağıdaki indekstekiCesitiGetir işlevini kulla
    1. İlk parametrede tatlar dizisini argüman olarak alacak bir dizi alın
    2. İkinci parametrede argüman olarak istenen dizini alacak bir sayı alın
    3. Verilen indekste bulunan çeşiti döndürün
-
+     
    Örneğin: indekstekiCesitiGetir(orijinalTatlar, 2) çalıştırılmasıyla, Kakule'in başarıyla eklendiği varsayarsak sonuç "Ceviz" olucaktır.
 */
 
-function indekstekiCesitiGetir(/*kod buraya*/){
-  /*kod buraya*/
+function indekstekiCesitiGetir(tatlar, sira) {
+  let sonuc = tatlar[sira];
+  return sonuc;
 }
-
-
+//console.log("indekskteki ceviz",indekstekiCesitiGetir(orijinalTatlar, 2));
 /* Görev 6:
 
 Firma, ürün yelpazesine daha fazla lezzet eklemek istediğinden, sadece ilk veya son aromayı keyfi olarak çıkarmak yerine, aroma adına göre aromaları kaldırmaları gerektiğini fark ederler. Göreviniz, verilen bir dizinde, ada göre bu tadı diziden çıkarmak.
@@ -128,11 +127,16 @@ Aşağıdakileri yapmak için ismeGoreCesitCikar işlevini kullanın:
   İPUCU: Bunun için .splice() kullanabilirsiniz.
 */
 
-function ismeGoreCesitCikar(/*kod buraya*/){
-  /*kod buraya*/
+function ismeGoreCesitCikar(tatlar, lezzetAdi) {
+  const kopyaTatlar = [...tatlar];
+  for (let i = 0; i < kopyaTatlar.length; i++) {
+    if (kopyaTatlar[i] == lezzetAdi) {
+      kopyaTatlar.splice(i, 1);
+    }
+  }
+  return kopyaTatlar;
 }
-
-
+//console.log(ismeGoreCesitCikar(orijinalTatlar, "Tarçın"));
 /* Görev 7:
 
 14 Şubat Sevgililer Günü'nde Firma, tüm çikolata lezzetlerini öne çıkaran bir promosyon malzemeleri oluşturmak istiyor.
@@ -153,13 +157,16 @@ Aşağıdakileri yapmak için ismeGoreFiltrele işlevini kullanın:
   Bu sorunu çözmek için GELİŞMİŞ DİZİ YÖNTEMLERİNİ (yani .filter) KULLANMAYIN.
 */
 
-
-function ismeGoreFiltrele(/*kod buraya*/){
-  /*kod buraya*/
+function ismeGoreFiltrele(tatlar, lezzet) {
+  let sonuc = [];
+  for (let i = 0; i < tatlar.length; i++) {
+    if (tatlar[i].includes(lezzet)) {
+      sonuc.push(tatlar[i]);
+    }
+  }
+  return sonuc;
 }
-
-
-
+//console.log(ismeGoreFiltrele(orijinalTatlar, "Çikolata"));
 /* ALIŞTIRMA */
 
 /* ALIŞTIRMA 1: Bir dizideki ortalama kelime sayısını döndüren bir fonksiyon yazın. Bu işlevi orijinalTatlar dizisinde test etmelisiniz, ancak bunu herhangi bir dizi için de kullanabilmelisiniz.
@@ -172,10 +179,7 @@ Aşağıdakileri yapmak için ortalamaKelimeSayisi işlevini kullanın:
    Örneğin: ortalamaKelimeSayisi(orijinalTatlar) 0 ile 2 arasında bir sayı döndürmelidir.
 */
 
-function ortalamaKelimeSayisi(/*kod buraya*/){
-  /*kod buraya*/
-}
-
+function ortalamaKelimeSayisi() {}
 
 /* ALIŞTIRMA 2:
 Firma mevcut tatların yanında artık mevsimlik lezzetler ve hatta bölgesel lezzetler de sunmaktadır. Toplam 25 lezzet aromasını
@@ -189,8 +193,7 @@ Aşağıdakileri yapmak için rastgeleTatlar işlevini ve yeni dizileri kullanı
   Örneğin: rastgeleTatlar(orijinalTatlar, yeniTatlar, mevsimlikTatlar, bolgeselTatlar) çalıştırıldığında ["Kestane", "Ballı Badem,"..."Hindistan Cevizi", "Kuru üzüm"].
 */
 
-
-function rastgeleTatlar(/*kod buraya*/){
+function rastgeleTatlar(/*kod buraya*/) {
   /*kod buraya*/
 }
 
@@ -232,11 +235,10 @@ function rastgeleTatlar(/*kod buraya*/){
 // "Karamel"
 // ]
 
-
 /* Lütfen bu satırın altındaki hiçbir şeyi değiştirmeyin */
-function sa(){
-  console.log('Calışıyor');
-  return 'as';
+function sa() {
+  console.log("Calışıyor");
+  return "as";
 }
 sa();
 module.exports = {
@@ -249,6 +251,5 @@ module.exports = {
   kopyala,
   ismeGoreFiltrele,
   ortalamaKelimeSayisi,
-  rastgeleTatlar
-}
-
+  rastgeleTatlar,
+};
